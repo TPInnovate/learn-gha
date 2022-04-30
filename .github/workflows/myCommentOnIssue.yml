@@ -23,7 +23,7 @@ jobs:
         shell: bash
       #using community created action to do comment in issue - peter-evans/create-or-update-comment@v2
       - name: Create comment with Community action
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v1
         with:
           # Using the variable that will have issue number generated when an issue is created in Issue tab
           issue-number: ${{ github.event.issue.number }}
@@ -43,9 +43,9 @@ jobs:
       - name: Create comment with GH API
         run: |
           gh api -X POST \
-             http://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments \
+             https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments \
              -f body='
-             Comments but from the API call not action
+             Comments from the API call not action
              '
         env:
            # GITHUB_TOKEN is token with permissions to this repos only and valid for the duration of this workflow only
